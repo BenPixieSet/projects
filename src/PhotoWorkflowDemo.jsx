@@ -259,7 +259,7 @@ const PhotoWorkflowDemo = () => {
           {/* Templates Section */}
           <div className="section-container templates-section">
             <h3 className="section-title">PW | Web Template</h3>
-            <p className="section-description">Populates template with your custom photos <br/> Users can shuffle photos and update styles template kits</p>
+            <p className="section-description">Populates template with your custom photos <br/> Users can shuffle photos and update template style kits</p>
             <div className="demo-card" style={{ width: '100%', maxWidth: '600px', minHeight: '300px' }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', marginBottom: '12px' }}>
                 <div style={{ display: 'flex', gap: '8px' }}>
