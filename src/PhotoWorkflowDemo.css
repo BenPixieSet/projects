@@ -97,7 +97,7 @@
 
 .section-description {
   font-size: 14px;
-  color: #6b7280;
+  color: #0e0e0f;
   margin: 0 0 16px 0;
   font-style: italic;
 }
@@ -139,7 +139,7 @@
 
 .section-description {
   font-size: 14px;
-  color: #6b7280;
+  color: #000000;
   margin: 0 0 16px 0;
   font-style: italic;
 }
@@ -422,12 +422,12 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
-  background-color: #3b82f6;
-  color: white;
+  background-color: #7beabe;
+  color: rgb(10, 10, 10);
 }
 
 .upload-button:hover {
-  background-color: #2563eb;
+  background-color: #8fddbb;
 }
 
 /* Shuffle button styles */

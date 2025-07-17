@@ -284,7 +284,7 @@ const PhotoWorkflowDemo = () => {
     <div className="demo-container">
       <div className="demo-content">
         <div className="demo-header">
-          <h1 className="demo-title">Photo Workflow Demo</h1>
+          <h1 className="demo-title">Template | Photo Workflow Demo</h1>
           <p className="demo-subtitle">
             GD | Collections → PW | Media Library → Populated Site
           </p>
@@ -359,7 +359,7 @@ const PhotoWorkflowDemo = () => {
           <div className="section-container media-library-section">
             <h3 className="section-title">PW | Media Library</h3>
             <p className="section-description">
-              Add photos from latest collection
+              Populates media gallery w/ photos from your latest collection
             </p>
             <div className="demo-card">
               <div className="media-gallery-container">
@@ -395,10 +395,12 @@ const PhotoWorkflowDemo = () => {
 
           {/* Templates Section */}
           <div className="section-container templates-section">
-            <h3 className="section-title">Preview Page | Templates</h3>
+            <h3 className="section-title">Preview Page | Template</h3>
             <p className="section-description">
-              Instantly update template with your photos <br /> Additionally,
-              users can shuffle photos and update style kits.
+              Update template with your photos from the media library 
+              <br />
+              <br />
+               <strong> Additionally,</strong> users can  <strong>shuffle</strong> photos and update  <strong>style kits.</strong>
             </p>
 
             <div
