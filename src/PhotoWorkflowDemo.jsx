@@ -9,6 +9,7 @@ const PhotoWorkflowDemo = () => {
   const [animatingPhotos, setAnimatingPhotos] = useState([]);
   const [isAnimating, setIsAnimating] = useState(false);
   const [currentStyleKit, setCurrentStyleKit] = useState(0);
+  const [customStyle, setCustomStyle] = useState(null);
   const fileInputRef = useRef(null);
 
   // Style kits for the website template
@@ -185,7 +186,25 @@ const PhotoWorkflowDemo = () => {
 
   const handleStyleKit = () => {
     if (templatePhotos.length === 0) return;
+    setCustomStyle(null); // Clear custom style when cycling through presets
     setCurrentStyleKit((prev) => (prev + 1) % styleKits.length);
+  };
+
+  const handleFeelLucky = () => {
+    if (templatePhotos.length === 0) return;
+    
+    // Create a random style by mixing properties from all style kits
+    const randomStyle = {
+      name: 'Lucky Mix',
+      backgroundColor: styleKits[Math.floor(Math.random() * styleKits.length)].backgroundColor,
+      borderColor: styleKits[Math.floor(Math.random() * styleKits.length)].borderColor,
+      titleColor: styleKits[Math.floor(Math.random() * styleKits.length)].titleColor,
+      subtitleColor: styleKits[Math.floor(Math.random() * styleKits.length)].subtitleColor,
+      titleFont: styleKits[Math.floor(Math.random() * styleKits.length)].titleFont,
+      subtitleFont: styleKits[Math.floor(Math.random() * styleKits.length)].subtitleFont
+    };
+    
+    setCustomStyle(randomStyle);
   };
 
   const reset = () => {
@@ -193,7 +212,8 @@ const PhotoWorkflowDemo = () => {
     setTemplatePhotos([]);
     setAnimatingPhotos([]);
     setIsAnimating(false);
-    setCurrentStyleKit(4);
+    setCurrentStyleKit(0);
+    setCustomStyle(null);
   };
 
   const PhotoSquare = ({ photo, className = "", isInTemplate = false }) => (
@@ -256,7 +276,7 @@ const PhotoWorkflowDemo = () => {
     </div>
   );
 
-  const currentStyle = styleKits[currentStyleKit];
+  const currentStyle = customStyle || styleKits[currentStyleKit];
 
   return (
     <div className="demo-container">
@@ -365,6 +385,13 @@ const PhotoWorkflowDemo = () => {
                   >
                     <Palette size={14} />
                     Style Kit
+                  </button>
+                  <button
+                    onClick={handleFeelLucky}
+                    disabled={templatePhotos.length === 0}
+                    className="feel-lucky-button"
+                  >
+                    🎲 I Feel Lucky
                   </button>
                 </div>
               </div>

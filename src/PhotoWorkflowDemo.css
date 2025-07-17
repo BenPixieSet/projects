@@ -373,6 +373,42 @@
   gap: 8px;
 }
 
+/* Feel Lucky button styles */
+.feel-lucky-button {
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border: 2px solid rgb(25, 43, 47);
+  cursor: pointer;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #ffeaa7);
+  background-size: 400% 400%;
+  color: white;
+  animation: gradientShift 3s ease infinite;
+}
+
+.feel-lucky-button:hover:not(:disabled) {
+  transform: scale(1.05);
+  animation-duration: 1s;
+}
+
+.feel-lucky-button:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+  animation: none;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 /* Upload button styles */
 .upload-button {
   padding: 8px 12px;
@@ -386,12 +422,12 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
-  background-color: #2fdb93fe;
-  color: rgb(8, 5, 5);
+  background-color: #3b82f6;
+  color: white;
 }
 
 .upload-button:hover {
-  background-color: #79ecca;
+  background-color: #2563eb;
 }
 
 /* Shuffle button styles */
@@ -444,6 +480,42 @@
 .style-kit-button:disabled {
   background-color: #9ca3af;
   cursor: not-allowed;
+}
+
+/* Feel Lucky button styles */
+.feel-lucky-button {
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border: 2px solid rgb(25, 43, 47);
+  cursor: pointer;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #ffeaa7);
+  background-size: 400% 400%;
+  color: white;
+  animation: gradientShift 3s ease infinite;
+}
+
+.feel-lucky-button:hover:not(:disabled) {
+  transform: scale(1.05);
+  animation-duration: 1s;
+}
+
+.feel-lucky-button:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+  animation: none;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .button-blue {
@@ -525,13 +597,13 @@
 }
 
 .template-title {
-  font-size: 20px;
+  font-size: 14px;
   font-weight: bold;
   color: #1f2937;
 }
 
 .template-subtitle {
-  font-size: 14px;
+  font-size: 12px;
   color: #6b7280;
 }
 
