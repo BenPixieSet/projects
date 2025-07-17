@@ -344,7 +344,7 @@ const PhotoWorkflowDemo = () => {
 
           {/* Templates Section */}
           <div className="section-container templates-section">
-            <h3 className="section-title">PW | Templates</h3>
+            <h3 className="section-title">Preview Page | Templates</h3>
             <p className="section-description">Instantly update template with your photos  <br/> Additionally, users can shuffle photos and update style kits.</p>
           
             <div className="demo-card" style={{ width: '100%', maxWidth: '600px', minHeight: '300px' }}>
