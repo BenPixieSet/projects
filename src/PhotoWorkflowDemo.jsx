@@ -42,11 +42,20 @@ const PhotoWorkflowDemo = () => {
     },
     {
       name: 'Rad Neon',
-      backgroundColor: '#2fff00ff',
+      backgroundColor: '#000000',
       borderColor: '#ff00ff',
-      titleColor: '#ff0080ff',
-      subtitleColor: '#fff',
+      titleColor: '#00ffff',
+      subtitleColor: '#ffff00',
       titleFont: 'Impact, "Arial Black", sans-serif',
+      subtitleFont: '"Courier New", monospace'
+    },
+    {
+      name: 'Gradient',
+      backgroundColor: 'linear-gradient(135deg, #000000ff 0%, #10bcecff 100%)',
+      borderColor: '#8b5cf6',
+      titleColor: '#ffffff',
+      subtitleColor: '#e0e7ff',
+      titleFont: '"Courier New", monospace',
       subtitleFont: '"Courier New", monospace'
     }
   ];
@@ -78,12 +87,43 @@ const PhotoWorkflowDemo = () => {
             color: null,
             name: file.name,
             imageUrl: e.target.result,
-            isUploaded: true
+            isUploaded: true,
+            isVideo: false
           };
           
           setClientPhotos(prev => [...prev, newPhoto]);
         };
         reader.readAsDataURL(file);
+      } else if (file.type.startsWith('video/')) {
+        const videoUrl = URL.createObjectURL(file);
+        const video = document.createElement('video');
+        video.src = videoUrl;
+        video.currentTime = 1; // Seek to 1 second for thumbnail
+        
+        video.onloadeddata = () => {
+          const canvas = document.createElement('canvas');
+          canvas.width = video.videoWidth;
+          canvas.height = video.videoHeight;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(video, 0, 0);
+          
+          const thumbnailUrl = canvas.toDataURL('image/jpeg', 0.7);
+          
+          const newVideo = {
+            id: `uploaded-${Date.now()}-${Math.random()}`,
+            color: null,
+            name: file.name,
+            imageUrl: thumbnailUrl, // Thumbnail for display
+            videoUrl: videoUrl, // Original video URL
+            isUploaded: true,
+            isVideo: true
+          };
+          
+          setClientPhotos(prev => [...prev, newVideo]);
+          
+          // Clean up the video element
+          video.remove();
+        };
       }
     });
     
@@ -153,20 +193,66 @@ const PhotoWorkflowDemo = () => {
     setTemplatePhotos([]);
     setAnimatingPhotos([]);
     setIsAnimating(false);
-    setCurrentStyleKit(0);
+    setCurrentStyleKit(4);
   };
 
-  const PhotoSquare = ({ photo, className = "" }) => (
+  const PhotoSquare = ({ photo, className = "", isInTemplate = false }) => (
     <div
       className={`photo-square ${className}`}
       style={{ 
         backgroundColor: photo.isUploaded ? 'transparent' : photo.color,
         backgroundImage: photo.isUploaded ? `url(${photo.imageUrl})` : 'none',
         backgroundSize: 'cover',
-        backgroundPosition: 'center'
+        backgroundPosition: 'center',
+        position: 'relative'
       }}
     >
-      {!photo.isUploaded && <Image size={14} />}
+      {photo.isVideo && isInTemplate ? (
+        <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+          <video 
+            src={photo.videoUrl} 
+            controls
+            style={{ 
+              width: '100%', 
+              height: '100%', 
+              objectFit: 'cover', 
+              borderRadius: '6px'
+            }}
+          />
+        </div>
+      ) : photo.isVideo ? (
+        <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+          <div
+            style={{
+              backgroundImage: `url(${photo.imageUrl})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              width: '100%',
+              height: '100%',
+              borderRadius: '6px'
+            }}
+          />
+          <div style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            backgroundColor: 'rgba(0,0,0,0.6)',
+            borderRadius: '50%',
+            width: '20px',
+            height: '20px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '10px',
+            color: 'white'
+          }}>
+            ▶
+          </div>
+        </div>
+      ) : !photo.isUploaded ? (
+        <Image size={14} />
+      ) : null}
     </div>
   );
 
@@ -186,7 +272,7 @@ const PhotoWorkflowDemo = () => {
           {/* GD Collections Section */}
           <div className="section-container collections-section">
             <h3 className="section-title">GD | Collections</h3>
-            <p className="section-description">Fetches latest Collection</p>
+            <p className="section-description">Upload and organize your photo collections</p>
             <div className="demo-card">
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', marginBottom: '12px' }}>
                 <button
@@ -194,14 +280,14 @@ const PhotoWorkflowDemo = () => {
                   className="upload-button"
                 >
                   <Upload size={14} />
-                  Upload
+                  Upload Photos/Videos
                 </button>
               </div>
               <input
                 type="file"
                 ref={fileInputRef}
                 onChange={handleFileUpload}
-                accept="image/*"
+                accept="image/*,video/*"
                 multiple
                 style={{ display: 'none' }}
               />
@@ -225,13 +311,13 @@ const PhotoWorkflowDemo = () => {
             className="workflow-button button-blue import-button"
           >
             <ArrowRightLeft size={16} />
-            Fetch collection photos
+            Fetch from Collections
           </button>
 
           {/* Media Library Section */}
           <div className="section-container media-library-section">
             <h3 className="section-title">PW | Media Library</h3>
-            <p className="section-description">Adds Colleciton photos to Media Library</p>
+            <p className="section-description">Photos ready for website integration</p>
             <div className="demo-card">
               <div className="media-gallery-container">
                 {mediaGalleryPhotos.map((photo) => (
@@ -258,8 +344,8 @@ const PhotoWorkflowDemo = () => {
 
           {/* Templates Section */}
           <div className="section-container templates-section">
-            <h3 className="section-title">PW | Web Template</h3>
-            <p className="section-description">Populates template with your custom photos <br/> Users can shuffle photos and update template style kits</p>
+            <h3 className="section-title">PW | Templates</h3>
+            <p className="section-description">Live website with populated photos and styling</p>
             <div className="demo-card" style={{ width: '100%', maxWidth: '600px', minHeight: '300px' }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', marginBottom: '12px' }}>
                 <div style={{ display: 'flex', gap: '8px' }}>
@@ -284,7 +370,7 @@ const PhotoWorkflowDemo = () => {
               <div 
                 className="template-container"
                 style={{
-                  backgroundColor: currentStyle.backgroundColor,
+                  background: currentStyle.backgroundColor,
                   borderColor: currentStyle.borderColor,
                   transition: 'all 0.3s ease'
                 }}
@@ -313,7 +399,7 @@ const PhotoWorkflowDemo = () => {
                 </div>
                 <div className="photo-grid-3x3">
                   {templatePhotos.slice(0, 9).map((photo) => (
-                    <PhotoSquare key={photo.id} photo={photo} className="photo-square-template" />
+                    <PhotoSquare key={photo.id} photo={photo} className="photo-square-template" isInTemplate={true} />
                   ))}
                   {templatePhotos.length === 0 && (
                     <div className="template-preview-3x3">
@@ -353,7 +439,39 @@ const PhotoWorkflowDemo = () => {
                   zIndex: 100 - index
                 }}
               >
-                {!photo.isUploaded && <Image size={14} />}
+                {photo.isVideo ? (
+                  <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+                    <div
+                      style={{
+                        backgroundImage: `url(${photo.imageUrl})`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                        width: '100%',
+                        height: '100%',
+                        borderRadius: '6px'
+                      }}
+                    />
+                    <div style={{
+                      position: 'absolute',
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      backgroundColor: 'rgba(0,0,0,0.6)',
+                      borderRadius: '50%',
+                      width: '16px',
+                      height: '16px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: '8px',
+                      color: 'white'
+                    }}>
+                      ▶
+                    </div>
+                  </div>
+                ) : !photo.isUploaded ? (
+                  <Image size={14} />
+                ) : null}
               </div>
             ))}
           </div>
