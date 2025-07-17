@@ -33,11 +33,44 @@
 
 /* Updated workflow layout */
 .demo-grid {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  grid-template-rows: auto auto auto;
   gap: 16px;
-  flex-wrap: wrap;
+  align-items: start;
+  justify-items: center;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Position items in the grid */
+.collections-section {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.import-button {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: center;
+}
+
+.media-library-section {
+  grid-column: 3;
+  grid-row: 1;
+}
+
+.populate-button {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  justify-self: center;
+}
+
+.templates-section {
+  grid-column: 1 / -1;
+  grid-row: 3;
+  width: 100%;
+  max-width: 600px;
 }
 
 @media (max-width: 768px) {
@@ -47,13 +80,36 @@
   }
 }
 
+/* Section Styles */
+.section-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 4px 0;
+}
+
+.section-description {
+  font-size: 14px;
+  color: #000000;
+  margin: 0 0 16px 0;
+  font-style: bold;
+}
+
 /* Card Styles */
 .demo-card {
   background: white;
   border-radius: 8px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   padding: 16px;
-  min-width: 200px;
+  width: 280px;
+  min-height: 200px;
 }
 
 .card-title {
@@ -63,6 +119,90 @@
   color: #1f2937;
   display: flex;
   align-items: center;
+  gap: 8px;
+}
+
+/* Section Styles */
+.section-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 4px 0;
+}
+
+.section-description {
+  font-size: 14px;
+  color: #000000;
+  margin: 0 0 16px 0;
+  font-style: bold;
+}
+
+/* Collection Styles */
+.collection-section {
+  margin-bottom: 16px;
+  padding: 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  background-color: #f9fafb;
+}
+
+.collection-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+  margin: 0;
+}
+
+.collection-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+}
+
+.collection-import-button {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+  border: 1px solid rgb(25, 43, 47);
+  cursor: pointer;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #6366f1;
+  color: white;
+}
+
+.collection-import-button:hover:not(:disabled) {
+  background-color: #4f46e5;
+}
+
+.collection-import-button:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* Workflow Arrow */
+.workflow-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+  padding: 8px;
+}
+
+/* Populate Buttons Container */
+.populate-buttons {
+  display: flex;
+  flex-direction: column;
   gap: 8px;
 }
 
@@ -171,9 +311,71 @@
   min-width: 140px;
 }
 
+/* Collection Styles */
+.collection-section {
+  margin-bottom: 16px;
+  padding: 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  background-color: #f9fafb;
+}
+
+.collection-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+  margin: 0;
+}
+
+.collection-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+}
+
+.collection-import-button {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+  border: 1px solid rgb(25, 43, 47);
+  cursor: pointer;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #6366f1;
+  color: white;
+}
+
+.collection-import-button:hover:not(:disabled) {
+  background-color: #4f46e5;
+}
+
+.collection-import-button:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* Workflow Arrow */
+.workflow-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+  padding: 8px;
+}
+
+/* Populate Buttons Container */
+.populate-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 /* Upload button styles */
 .upload-button {
-  padding: 4px 8px;
+  padding: 8px 12px;
   border-radius: 6px;
   font-weight: 500;
   transition: background-color 0.2s ease;
@@ -184,17 +386,17 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
-  background-color: #4fecbf;
-  color: rgb(14, 10, 10);
+  background-color: #3b82f6;
+  color: white;
 }
 
 .upload-button:hover {
-  background-color: #6fe2a1;
+  background-color: #2563eb;
 }
 
 /* Shuffle button styles */
 .shuffle-button {
-  padding: 4px 8px;
+  padding: 8px 12px;
   border-radius: 6px;
   font-weight: 500;
   transition: background-color 0.2s ease;
@@ -220,7 +422,7 @@
 
 /* Style Kit button styles */
 .style-kit-button {
-  padding: 4px 8px;
+  padding: 8px 12px;
   border-radius: 6px;
   font-weight: 500;
   transition: background-color 0.2s ease;
@@ -355,7 +557,9 @@
   border: 2px dashed #d1d5db;
   border-radius: 6px;
   height: 100px;
-  aspect-ratio: 3/1; /* Maintains proportional height for 3-column span */
+  aspect-ratio: 3/1;
+  width: 100%;
+  margin: 0 auto;
 }
 
 /* Reset Button */

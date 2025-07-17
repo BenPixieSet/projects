@@ -183,58 +183,66 @@ const PhotoWorkflowDemo = () => {
         {/* Main Layout */}
         <div className="demo-grid">
           
-          {/* Client Gallery */}
-          <div className="demo-card">
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
-              <h3 className="card-title" style={{ marginBottom: 0 }}>GD | Collections</h3>
-              <button
-                onClick={handleUploadClick}
-                className="upload-button"
-              >
-                <Upload size={14} />
-                Upload
-              </button>
+          {/* GD Collections Section */}
+          <div className="section-container collections-section">
+            <h3 className="section-title">GD | Collections</h3>
+            <p className="section-description">Fetches latest Collection</p>
+            <div className="demo-card">
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', marginBottom: '12px' }}>
+                <button
+                  onClick={handleUploadClick}
+                  className="upload-button"
+                >
+                  <Upload size={14} />
+                  Upload
+                </button>
+              </div>
+              <input
+                type="file"
+                ref={fileInputRef}
+                onChange={handleFileUpload}
+                accept="image/*"
+                multiple
+                style={{ display: 'none' }}
+              />
+              <div className="client-gallery-container">
+                {clientPhotos.map((photo) => (
+                  <PhotoSquare key={photo.id} photo={photo} className="photo-square-client" />
+                ))}
+                {clientPhotos.length === 0 && (
+                  <div className="empty-gallery">
+                    <Grid3X3 size={20} />
+                  </div>
+                )}
+              </div>
             </div>
-            <input
-              type="file"
-              ref={fileInputRef}
-              onChange={handleFileUpload}
-              accept="image/*"
-              multiple
-              style={{ display: 'none' }}
-            />
-            <div className="photo-grid">
-              {clientPhotos.map((photo) => (
-                <PhotoSquare key={photo.id} photo={photo} className="photo-square-client" />
-              ))}
-            </div>
-              <div className="empty-gallery">
-                  <Grid3X3 size={20} />
-                </div>
           </div>
 
           {/* Import Button */}
           <button
             onClick={handleImport}
             disabled={isAnimating || mediaGalleryPhotos.length > 0}
-            className="workflow-button button-blue"
+            className="workflow-button button-blue import-button"
           >
             <ArrowRightLeft size={16} />
-            Fetch from Collections
+            Fetch collection photos
           </button>
 
-          {/* Media Gallery */}
-          <div className="demo-card">
-            <h3 className="card-title">Add to Media Library</h3>
-            <div className="media-gallery-container">
-              {mediaGalleryPhotos.map((photo) => (
-                <PhotoSquare key={photo.id} photo={photo} className="photo-square-md" />
-              ))}
-              {mediaGalleryPhotos.length === 0 && (
-                <div className="empty-gallery">
-                  <Grid3X3 size={20} />
-                </div>
-              )}
+          {/* Media Library Section */}
+          <div className="section-container media-library-section">
+            <h3 className="section-title">PW | Media Library</h3>
+            <p className="section-description">Adds Colleciton photos to Media Library</p>
+            <div className="demo-card">
+              <div className="media-gallery-container">
+                {mediaGalleryPhotos.map((photo) => (
+                  <PhotoSquare key={photo.id} photo={photo} className="photo-square-md" />
+                ))}
+                {mediaGalleryPhotos.length === 0 && (
+                  <div className="empty-gallery">
+                    <Grid3X3 size={20} />
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 
@@ -242,74 +250,77 @@ const PhotoWorkflowDemo = () => {
           <button
             onClick={handlePopulate}
             disabled={isAnimating || mediaGalleryPhotos.length === 0 || templatePhotos.length > 0}
-            className="workflow-button button-green"
+            className="workflow-button button-green populate-button"
           >
             <Eye size={16} />
             Populate site
           </button>
 
-          {/* Website Template */}
-          <div className="demo-card">
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
-              <h3 className="card-title" style={{ marginBottom: 0 }}>PW | Templates</h3>
-              <div style={{ display: 'flex', gap: '8px' }}>
-                <button
-                  onClick={handleShuffle}
-                  disabled={templatePhotos.length === 0}
-                  className="shuffle-button"
-                >
-                  <Shuffle size={14} />
-                  Shuffle
-                </button>
-                <button
-                  onClick={handleStyleKit}
-                  disabled={templatePhotos.length === 0}
-                  className="style-kit-button"
-                >
-                  <Palette size={14} />
-                  Style Kit
-                </button>
+          {/* Templates Section */}
+          <div className="section-container templates-section">
+            <h3 className="section-title">PW | Web Template</h3>
+            <p className="section-description">Populates template with your custom photos <br/> Users can shuffle photos and update styles template kits</p>
+            <div className="demo-card" style={{ width: '100%', maxWidth: '600px', minHeight: '300px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', marginBottom: '12px' }}>
+                <div style={{ display: 'flex', gap: '8px' }}>
+                  <button
+                    onClick={handleShuffle}
+                    disabled={templatePhotos.length === 0}
+                    className="shuffle-button"
+                  >
+                    <Shuffle size={14} />
+                    Shuffle
+                  </button>
+                  <button
+                    onClick={handleStyleKit}
+                    disabled={templatePhotos.length === 0}
+                    className="style-kit-button"
+                  >
+                    <Palette size={14} />
+                    Style Kit
+                  </button>
+                </div>
               </div>
-            </div>
-            <div 
-              className="template-container"
-              style={{
-                backgroundColor: currentStyle.backgroundColor,
-                borderColor: currentStyle.borderColor,
-                transition: 'all 0.3s ease'
-              }}
-            >
-              <div className="template-header">
-                <h4 
-                  className="template-title"
-                  style={{
-                    color: currentStyle.titleColor,
-                    fontFamily: currentStyle.titleFont,
-                    transition: 'all 0.3s ease'
-                  }}
-                >
-                  My Portfolio
-                </h4>
-                <p 
-                  className="template-subtitle"
-                  style={{
-                    color: currentStyle.subtitleColor,
-                    fontFamily: currentStyle.subtitleFont,
-                    transition: 'all 0.3s ease'
-                  }}
-                >
-                  Photography - {currentStyle.name} Style
-                </p>
-              </div>
-              <div className="photo-grid-3x3">
-                {templatePhotos.slice(0, 9).map((photo) => (
-                  <PhotoSquare key={photo.id} photo={photo} className="photo-square-template" />
-                ))}
-                {templatePhotos.length === 0 && (
-                  <div className="template-preview-3x3">
-                    Template Preview
-                  </div>
-                )}
+              <div 
+                className="template-container"
+                style={{
+                  backgroundColor: currentStyle.backgroundColor,
+                  borderColor: currentStyle.borderColor,
+                  transition: 'all 0.3s ease'
+                }}
+              >
+                <div className="template-header">
+                  <h4 
+                    className="template-title"
+                    style={{
+                      color: currentStyle.titleColor,
+                      fontFamily: currentStyle.titleFont,
+                      transition: 'all 0.3s ease'
+                    }}
+                  >
+                    My Portfolio
+                  </h4>
+                  <p 
+                    className="template-subtitle"
+                    style={{
+                      color: currentStyle.subtitleColor,
+                      fontFamily: currentStyle.subtitleFont,
+                      transition: 'all 0.3s ease'
+                    }}
+                  >
+                    Photography - {currentStyle.name} Style
+                  </p>
+                </div>
+                <div className="photo-grid-3x3">
+                  {templatePhotos.slice(0, 9).map((photo) => (
+                    <PhotoSquare key={photo.id} photo={photo} className="photo-square-template" />
+                  ))}
+                  {templatePhotos.length === 0 && (
+                    <div className="template-preview-3x3">
+                      Template Preview
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>
