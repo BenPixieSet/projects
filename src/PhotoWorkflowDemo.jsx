@@ -220,12 +220,12 @@ const PhotoWorkflowDemo = () => {
             className="workflow-button button-blue"
           >
             <ArrowRightLeft size={16} />
-            Fetch photos from GD
+            Fetch from Collections
           </button>
 
           {/* Media Gallery */}
           <div className="demo-card">
-            <h3 className="card-title">PW | Media Library</h3>
+            <h3 className="card-title">Add to Media Library</h3>
             <div className="media-gallery-container">
               {mediaGalleryPhotos.map((photo) => (
                 <PhotoSquare key={photo.id} photo={photo} className="photo-square-md" />
@@ -245,7 +245,7 @@ const PhotoWorkflowDemo = () => {
             className="workflow-button button-green"
           >
             <Eye size={16} />
-            Populate Site
+            Populate site
           </button>
 
           {/* Website Template */}
