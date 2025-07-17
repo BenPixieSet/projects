@@ -19,8 +19,8 @@ const PhotoWorkflowDemo = () => {
       borderColor: '#e5e7eb',
       titleColor: '#1f2937',
       subtitleColor: '#6b7280',
-      titleFont: 'Arial, sans-serif',
-      subtitleFont: 'Arial, sans-serif'
+      titleFont: 'monospace, sans-serif',
+      subtitleFont: 'monospace, sans-serif'
     },
     {
       name: 'Modern',
@@ -46,8 +46,8 @@ const PhotoWorkflowDemo = () => {
       borderColor: '#ff00ff',
       titleColor: '#00ffff',
       subtitleColor: '#ffff00',
-      titleFont: 'Impact, "Arial Black", sans-serif',
-      subtitleFont: '"Courier New", monospace'
+      titleFont: 'Zen Dots, "Arial Black", sans-serif',
+      subtitleFont: 'Bangers, monospace'
     },
     {
       name: 'Gradient',
@@ -55,8 +55,8 @@ const PhotoWorkflowDemo = () => {
       borderColor: '#8b5cf6',
       titleColor: '#ffffff',
       subtitleColor: '#e0e7ff',
-      titleFont: '"Courier New", monospace',
-      subtitleFont: '"Courier New", monospace'
+      titleFont: 'Fascinate, monospace',
+      subtitleFont: 'arial, monospace'
     }
   ];
 
@@ -174,7 +174,7 @@ const PhotoWorkflowDemo = () => {
       setTemplatePhotos([...mediaGalleryPhotos]);
       setAnimatingPhotos([]);
       setIsAnimating(false);
-    }, 3500);
+    }, 2000);
   };
 
   const handleShuffle = () => {
