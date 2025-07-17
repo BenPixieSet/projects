@@ -272,7 +272,7 @@ const PhotoWorkflowDemo = () => {
           {/* GD Collections Section */}
           <div className="section-container collections-section">
             <h3 className="section-title">GD | Collections</h3>
-            <p className="section-description">Upload and organize your photo collections</p>
+            <p className="section-description">Latest Collection</p>
             <div className="demo-card">
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', marginBottom: '12px' }}>
                 <button
@@ -317,7 +317,7 @@ const PhotoWorkflowDemo = () => {
           {/* Media Library Section */}
           <div className="section-container media-library-section">
             <h3 className="section-title">PW | Media Library</h3>
-            <p className="section-description">Photos ready for website integration</p>
+            <p className="section-description">Add photos from latest collection</p>
             <div className="demo-card">
               <div className="media-gallery-container">
                 {mediaGalleryPhotos.map((photo) => (
@@ -345,7 +345,8 @@ const PhotoWorkflowDemo = () => {
           {/* Templates Section */}
           <div className="section-container templates-section">
             <h3 className="section-title">PW | Templates</h3>
-            <p className="section-description">Live website with populated photos and styling</p>
+            <p className="section-description">Instantly update template with your photos  <br/> Additionally, users can shuffle photos and update style kits.</p>
+          
             <div className="demo-card" style={{ width: '100%', maxWidth: '600px', minHeight: '300px' }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', marginBottom: '12px' }}>
                 <div style={{ display: 'flex', gap: '8px' }}>
