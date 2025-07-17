@@ -1,0 +1,456 @@
+/* PhotoWorkflowDemo.css */
+/* Add this at the very beginning of PhotoWorkflowDemo.css */
+* {
+  font-family: Arial, sans-serif;
+}
+
+.demo-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #a6f5e0 0%, #f3e8ff 100%);
+  padding: 16px;
+}
+
+.demo-content {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.demo-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.demo-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #1f2937;
+  margin-bottom: 8px;
+}
+
+.demo-subtitle {
+  color: #6b7280;
+}
+
+/* Updated workflow layout */
+.demo-grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .demo-grid {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+/* Card Styles */
+.demo-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  min-width: 200px;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #1f2937;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Photo Grid Styles */
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+}
+
+.client-gallery-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  margin-bottom: 12px;
+  min-height: 80px;
+  border: 2px dashed #d1d5db;
+  border-radius: 8px;
+  padding: 4px;
+}
+
+.photo-grid-2col {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4px;
+  min-height: 80px;
+}
+
+.photo-grid-3x3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  min-height: 120px;
+}
+
+.photo-square {
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  transition: transform 0.3s ease;
+  aspect-ratio: 1; /* Makes all squares maintain 1:1 ratio */
+}
+
+.photo-square:hover {
+  transform: scale(1.05);
+}
+
+.photo-square-sm {
+  width: 40px;
+  height: 40px;
+}
+
+.photo-square-md {
+  width: 32px;
+  height: 32px;
+}
+
+.photo-square-lg {
+  width: 100%;
+  height: 48px;
+}
+
+.photo-square-template {
+  width: 100%;
+  height: auto; /* Let aspect-ratio control the height */
+}
+
+.photo-square-client {
+  width: 40px;
+  height: 40px;
+}
+
+/* Button Styles */
+.demo-button {
+  width: 100%;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+  border: 3px solid rgb(25, 43, 47);
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Workflow button styles */
+.workflow-button {
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+  border: 3px solid rgb(25, 43, 47);
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 140px;
+}
+
+/* Upload button styles */
+.upload-button {
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+  border: 2px solid rgb(25, 43, 47);
+  cursor: pointer;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background-color: #4fecbf;
+  color: rgb(14, 10, 10);
+}
+
+.upload-button:hover {
+  background-color: #6fe2a1;
+}
+
+/* Shuffle button styles */
+.shuffle-button {
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+  border: 2px solid rgb(25, 43, 47);
+  cursor: pointer;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background-color: #f59e0b;
+  color: white;
+}
+
+.shuffle-button:hover:not(:disabled) {
+  background-color: #d97706;
+}
+
+.shuffle-button:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* Style Kit button styles */
+.style-kit-button {
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+  border: 2px solid rgb(25, 43, 47);
+  cursor: pointer;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background-color: #8b5cf6;
+  color: white;
+}
+
+.style-kit-button:hover:not(:disabled) {
+  background-color: #7c3aed;
+}
+
+.style-kit-button:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.button-blue {
+  background-color: #23e8ba;
+  color: rgb(0, 0, 0);
+}
+
+.button-blue:hover:not(:disabled) {
+  background-color: #95f5b7;
+}
+
+.button-green {
+  background-color: #10b981;
+  color: white;
+}
+
+.button-green:hover:not(:disabled) {
+  background-color: #059669;
+}
+
+.button-gray {
+  background-color: #6b7280;
+  color: white;
+}
+
+.button-gray:hover {
+  background-color: #4b5563;
+}
+
+.demo-button:disabled,
+.workflow-button:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* Media Gallery Section */
+.media-gallery {
+  margin-bottom: 16px;
+}
+
+.media-gallery-title {
+  font-size: 25px;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 8px;
+}
+
+.media-gallery-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  margin-bottom: 12px;
+  min-height: 80px;
+  border: 2px dashed #d1d5db;
+  border-radius: 8px;
+  padding: 4px;
+}
+
+.empty-gallery {
+  grid-column: span 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+/* Website Template Styles */
+.template-container {
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 12px;
+  background-color: #f9fafb;
+}
+
+.template-header {
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.template-title {
+  font-size: 14px;
+  font-weight: bold;
+  color: #1f2937;
+}
+
+.template-subtitle {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.template-preview {
+  grid-column: span 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9ca3af;
+  font-size: 12px;
+  border: 2px dashed #d1d5db;
+  border-radius: 6px;
+  height: 48px;
+}
+
+.template-preview-3x3 {
+  grid-column: span 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9ca3af;
+  font-size: 12px;
+  border: 2px dashed #d1d5db;
+  border-radius: 6px;
+  height: 100px;
+  aspect-ratio: 3/1; /* Maintains proportional height for 3-column span */
+}
+
+/* Reset Button */
+.reset-container {
+  text-align: center;
+  margin-top: 24px;
+}
+
+/* Status Indicator */
+.status-indicator {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  padding: 12px;
+  max-width: 288px;
+}
+
+.status-label {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.status-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1f2937;
+}
+
+.status-animating {
+  color: #2563eb;
+}
+
+.status-populated {
+  color: #059669;
+}
+
+.status-ready {
+  color: #d97706;
+}
+
+.status-initial {
+  color: #6b7280;
+}
+
+/* Animated Photos Overlay */
+.animated-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 50;
+}
+
+.animated-photo {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  left: 50%;
+  top: 30%;
+  transform: translate(-50%, -50%);
+  animation: card-shuffle 3s ease-in-out forwards;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Keyframe Animation */
+@keyframes card-shuffle {
+  0% { 
+    transform: translate(-50%, -50%) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  25% {
+    transform: translate(-50%, -50%) rotate(180deg) scale(1.1) translateY(-30px);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translate(-50%, -50%) rotate(360deg) scale(0.9) translateY(-60px) translateX(40px);
+    opacity: 0.8;
+  }
+  75% {
+    transform: translate(-50%, -50%) rotate(540deg) scale(1.2) translateY(-30px) translateX(-40px);
+    opacity: 0.7;
+  }
+  100% { 
+    transform: translate(-50%, -50%) rotate(720deg) scale(0.8) translateY(0px);
+    opacity: 0;
+  }
+}

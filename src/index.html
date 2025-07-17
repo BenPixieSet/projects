@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Workflow Demo</title>
+    <!-- Add your CSS file here -->
+    <!-- <link rel="stylesheet" href="PhotoWorkflowDemo.css"> -->
+    <style>
+      /* PhotoWorkflowDemo.css */
+/* Add this at the very beginning of PhotoWorkflowDemo.css */
+* {
+  font-family: Arial, sans-serif;
+}
+
+.demo-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #a6f5e0 0%, #f3e8ff 100%);
+  padding: 16px;
+}
+
+.demo-content {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.demo-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.demo-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #1f2937;
+  margin-bottom: 8px;
+}
+
+.demo-subtitle {
+  color: #6b7280;
+}
+
+/* Updated workflow layout */
+.demo-grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .demo-grid {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+/* Card Styles */
+.demo-card {
+  background: white;
+  border-radius: 8px;
+  border: 2px solid #565656;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  min-width: 200px;
+  min-height: 200px;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #1f2937;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Photo Grid Styles */
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+}
+
+.client-gallery-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  margin-bottom: 12px;
+  min-height: 80px;
+  border: 2px dashed #d1d5db;
+  border-radius: 8px;
+  padding: 4px;
+}
+
+.photo-grid-2col {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4px;
+  min-height: 80px;
+}
+
+.photo-grid-3x3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  min-height: 120px;
+}
+
+.photo-square {
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  transition: transform 0.3s ease;
+  aspect-ratio: 1; /* Makes all squares maintain 1:1 ratio */
+}
+
+.photo-square:hover {
+  transform: scale(1.05);
+}
+
+.photo-square-sm {
+  width: 40px;
+  height: 40px;
+}
+
+.photo-square-md {
+  width: 32px;
+  height: 32px;
+}
+
+.photo-square-lg {
+  width: 100%;
+  height: 48px;
+}
+
+.photo-square-template {
+  width: 100%;
+  height: auto; /* Let aspect-ratio control the height */
+}
+
+.photo-square-client {
+  width: 40px;
+  height: 40px;
+}
+
+/* Button Styles */
+.demo-button {
+  width: 100%;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+  border: 3px solid rgb(25, 43, 47);
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Workflow button styles */
+.workflow-button {
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+  border: 3px solid rgb(25, 43, 47);
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 140px;
+}
+
+/* Upload button styles */
+.upload-button {
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+  border: 2px solid rgb(25, 43, 47);
+  cursor: pointer;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background-color: #4fecbf;
+  color: rgb(14, 10, 10);
+}
+
+.upload-button:hover {
+  background-color: #6fe2a1;
+}
+
+/* Shuffle button styles */
+.shuffle-button {
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+  border: 2px solid rgb(25, 43, 47);
+  cursor: pointer;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background-color: #f59e0b;
+  color: white;
+}
+
+.shuffle-button:hover:not(:disabled) {
+  background-color: #d97706;
+}
+
+.shuffle-button:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* Style Kit button styles */
+.style-kit-button {
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+  border: 2px solid rgb(25, 43, 47);
+  cursor: pointer;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background-color: #8b5cf6;
+  color: white;
+}
+
+.style-kit-button:hover:not(:disabled) {
+  background-color: #7c3aed;
+}
+
+.style-kit-button:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.button-blue {
+  background-color: #23e8ba;
+  color: rgb(0, 0, 0);
+}
+
+.button-blue:hover:not(:disabled) {
+  background-color: #95f5b7;
+}
+
+.button-green {
+  background-color: #10b981;
+  color: white;
+}
+
+.button-green:hover:not(:disabled) {
+  background-color: #059669;
+}
+
+.button-gray {
+  background-color: #6b7280;
+  color: white;
+}
+
+.button-gray:hover {
+  background-color: #4b5563;
+}
+
+.demo-button:disabled,
+.workflow-button:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* Media Gallery Section */
+.media-gallery {
+  margin-bottom: 16px;
+}
+
+.media-gallery-title {
+  font-size: 25px;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 8px;
+}
+
+.media-gallery-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  margin-bottom: 12px;
+  min-height: 80px;
+  border: 2px dashed #d1d5db;
+  border-radius: 8px;
+  padding: 4px;
+}
+
+.empty-gallery {
+  grid-column: span 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+/* Website Template Styles */
+.template-container {
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 12px;
+  background-color: #f9fafb;
+}
+
+.template-header {
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.template-title {
+  font-size: 14px;
+  font-weight: bold;
+  color: #1f2937;
+}
+
+.template-subtitle {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.template-preview {
+  grid-column: span 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9ca3af;
+  font-size: 12px;
+  border: 2px dashed #d1d5db;
+  border-radius: 6px;
+  height: 48px;
+}
+
+.template-preview-3x3 {
+  grid-column: span 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9ca3af;
+  font-size: 12px;
+  border: 2px dashed #d1d5db;
+  border-radius: 6px;
+  height: 100px;
+  aspect-ratio: 3/1; /* Maintains proportional height for 3-column span */
+}
+
+/* Reset Button */
+.reset-container {
+  text-align: center;
+  margin-top: 24px;
+}
+
+/* Status Indicator */
+.status-indicator {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  padding: 12px;
+  max-width: 288px;
+}
+
+.status-label {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.status-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1f2937;
+}
+
+.status-animating {
+  color: #2563eb;
+}
+
+.status-populated {
+  color: #059669;
+}
+
+.status-ready {
+  color: #d97706;
+}
+
+.status-initial {
+  color: #6b7280;
+}
+
+/* Animated Photos Overlay */
+.animated-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 50;
+}
+
+.animated-photo {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  left: 50%;
+  top: 30%;
+  transform: translate(-50%, -50%);
+  animation: card-shuffle 3s ease-in-out forwards;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Keyframe Animation */
+@keyframes card-shuffle {
+  0% { 
+    transform: translate(-50%, -50%) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  25% {
+    transform: translate(-50%, -50%) rotate(180deg) scale(1.1) translateY(-30px);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translate(-50%, -50%) rotate(360deg) scale(0.9) translateY(-60px) translateX(40px);
+    opacity: 0.8;
+  }
+  75% {
+    transform: translate(-50%, -50%) rotate(540deg) scale(1.2) translateY(-30px) translateX(-40px);
+    opacity: 0.7;
+  }
+  100% { 
+    transform: translate(-50%, -50%) rotate(720deg) scale(0.8) translateY(0px);
+    opacity: 0;
+  }
+}
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <div class="demo-content">
+            <div class="demo-header">
+                <h1 class="demo-title">Photo Workflow Demo</h1>
+                <p class="demo-subtitle">GD | Collections → PW | Media Library → Populated Site</p>
+            </div>
+
+            <!-- Main Layout -->
+            <div class="demo-grid">
+                
+                <!-- Client Gallery -->
+                <div class="demo-card">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+                        <h3 class="card-title" style="margin-bottom: 0;">GD | Collections</h3>
+                        <button id="uploadBtn" class="upload-button">
+                            <span></span>
+                            Upload
+                        </button>
+                    </div>
+                    <input type="file" id="fileInput" accept="image/*" multiple style="display: none;">
+                    <div id="clientPhotos" class="photo-grid">
+                        <div class="empty-gallery">
+                            <span>⊞</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Import Button -->
+                <button id="importBtn" class="workflow-button button-blue">
+                    <span>⇄</span>
+                    Fetch photos from GD
+                </button>
+
+                <!-- Media Library -->
+                <div class="demo-card">
+                    <h3 class="card-title">PW | Media Library</h3>
+                    <div id="mediaGallery" class="media-gallery-container">
+                        <div class="empty-gallery">
+                            <span>⊞</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Populate Button -->
+                <button id="populateBtn" class="workflow-button button-green">
+                    <span></span>
+                    Populate Site
+                </button>
+
+                <!-- Website Template -->
+                <div class="demo-card">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+                        <h3 class="card-title" style="margin-bottom: 0;">PW | Templates</h3>
+                        <div style="display: flex; gap: 8px;">
+                            <button id="shuffleBtn" class="shuffle-button">
+                                <span></span>
+                                Shuffle
+                            </button>
+                            <button id="styleKitBtn" class="style-kit-button">
+                                <span></span>
+                                Style Kit
+                            </button>
+                        </div>
+                    </div>
+                    <div id="templateContainer" class="template-container">
+                        <div class="template-header">
+                            <h4 id="templateTitle" class="template-title">My Portfolio</h4>
+                            <p id="templateSubtitle" class="template-subtitle">Photography - Classic Style</p>
+                        </div>
+                        <div id="templatePhotos" class="photo-grid-3x3">
+                            <div class="template-preview-3x3">
+                                Template Preview
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reset Button -->
+            <div class="reset-container">
+                <button id="resetBtn" class="workflow-button button-gray" style="width: auto; padding: 8px 24px;">
+                    Reset Demo
+                </button>
+            </div>
+
+            <!-- Status Indicator -->
+            <div class="status-indicator">
+                <div class="status-label">Status:</div>
+                <div id="statusText" class="status-text status-initial">Ready to Import</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Animated Photos Overlay -->
+    <div id="animatedOverlay" class="animated-overlay" style="display: none;"></div>
+
+    <script>
+        // Application state
+        let state = {
+            clientPhotos: [],
+            mediaGalleryPhotos: [],
+            templatePhotos: [],
+            animatingPhotos: [],
+            isAnimating: false,
+            currentStyleKit: 0
+        };
+
+        // Style kits for the website template
+        const styleKits = [
+            {
+                name: 'Classic',
+                backgroundColor: '#f9fafb',
+                borderColor: '#e5e7eb',
+                titleColor: '#1f2937',
+                subtitleColor: '#6b7280',
+                titleFont: 'Arial, sans-serif',
+                subtitleFont: 'Arial, sans-serif'
+            },
+            {
+                name: 'Modern',
+                backgroundColor: '#0f172a',
+                borderColor: '#334155',
+                titleColor: '#f1f5f9',
+                subtitleColor: '#94a3b8',
+                titleFont: 'Georgia, serif',
+                subtitleFont: 'Georgia, serif'
+            },
+            {
+                name: 'Vibrant',
+                backgroundColor: '#fef3c7',
+                borderColor: '#f59e0b',
+                titleColor: '#92400e',
+                subtitleColor: '#d97706',
+                titleFont: 'Impact, sans-serif',
+                subtitleFont: 'Verdana, sans-serif'
+            },
+            {
+                name: 'Rad Neon',
+                backgroundColor: '#2fff00ff',
+                borderColor: '#ff00ff',
+                titleColor: '#ff0080ff',
+                subtitleColor: '#fff',
+                titleFont: 'Impact, "Arial Black", sans-serif',
+                subtitleFont: '"Courier New", monospace'
+            }
+        ];
+
+        // DOM elements
+        const uploadBtn = document.getElementById('uploadBtn');
+        const fileInput = document.getElementById('fileInput');
+        const importBtn = document.getElementById('importBtn');
+        const populateBtn = document.getElementById('populateBtn');
+        const shuffleBtn = document.getElementById('shuffleBtn');
+        const styleKitBtn = document.getElementById('styleKitBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const clientPhotosEl = document.getElementById('clientPhotos');
+        const mediaGalleryEl = document.getElementById('mediaGallery');
+        const templatePhotosEl = document.getElementById('templatePhotos');
+        const templateContainer = document.getElementById('templateContainer');
+        const templateTitle = document.getElementById('templateTitle');
+        const templateSubtitle = document.getElementById('templateSubtitle');
+        const statusText = document.getElementById('statusText');
+        const animatedOverlay = document.getElementById('animatedOverlay');
+
+        // Helper functions
+        function createPhotoSquare(photo, className = '') {
+            const div = document.createElement('div');
+            div.className = `photo-square ${className}`;
+            
+            if (photo.isUploaded) {
+                div.style.backgroundImage = `url(${photo.imageUrl})`;
+                div.style.backgroundSize = 'cover';
+                div.style.backgroundPosition = 'center';
+                div.style.backgroundColor = 'transparent';
+            } else {
+                div.style.backgroundColor = photo.color;
+                div.innerHTML = '<span>🖼</span>';
+            }
+            
+            return div;
+        }
+
+        function renderClientPhotos() {
+            clientPhotosEl.innerHTML = '';
+            
+            if (state.clientPhotos.length === 0) {
+                const emptyDiv = document.createElement('div');
+                emptyDiv.className = 'empty-gallery';
+                emptyDiv.innerHTML = '<span>⊞</span>';
+                clientPhotosEl.appendChild(emptyDiv);
+            } else {
+                state.clientPhotos.forEach(photo => {
+                    const photoEl = createPhotoSquare(photo, 'photo-square-client');
+                    clientPhotosEl.appendChild(photoEl);
+                });
+            }
+        }
+
+        function renderMediaGallery() {
+            mediaGalleryEl.innerHTML = '';
+            
+            if (state.mediaGalleryPhotos.length === 0) {
+                const emptyDiv = document.createElement('div');
+                emptyDiv.className = 'empty-gallery';
+                emptyDiv.innerHTML = '<span>⊞</span>';
+                mediaGalleryEl.appendChild(emptyDiv);
+            } else {
+                state.mediaGalleryPhotos.forEach(photo => {
+                    const photoEl = createPhotoSquare(photo, 'photo-square-md');
+                    mediaGalleryEl.appendChild(photoEl);
+                });
+            }
+        }
+
+        function renderTemplatePhotos() {
+            templatePhotosEl.innerHTML = '';
+            
+            if (state.templatePhotos.length === 0) {
+                const previewDiv = document.createElement('div');
+                previewDiv.className = 'template-preview-3x3';
+                previewDiv.textContent = 'Template Preview';
+                templatePhotosEl.appendChild(previewDiv);
+            } else {
+                state.templatePhotos.slice(0, 9).forEach(photo => {
+                    const photoEl = createPhotoSquare(photo, 'photo-square-template');
+                    templatePhotosEl.appendChild(photoEl);
+                });
+            }
+        }
+
+        function updateButtonStates() {
+            importBtn.disabled = state.isAnimating || state.mediaGalleryPhotos.length > 0;
+            populateBtn.disabled = state.isAnimating || state.mediaGalleryPhotos.length === 0 || state.templatePhotos.length > 0;
+            shuffleBtn.disabled = state.templatePhotos.length === 0;
+            styleKitBtn.disabled = state.templatePhotos.length === 0;
+        }
+
+        function updateStatus() {
+            const currentStyle = styleKits[state.currentStyleKit];
+            
+            statusText.className = 'status-text ';
+            
+            if (state.isAnimating) {
+                statusText.className += 'status-animating';
+                statusText.textContent = 'Animating...';
+            } else if (state.templatePhotos.length > 0) {
+                statusText.className += 'status-populated';
+                statusText.textContent = `Site Populated! (${currentStyle.name} Style)`;
+            } else if (state.mediaGalleryPhotos.length > 0) {
+                statusText.className += 'status-ready';
+                statusText.textContent = 'Ready to Populate';
+            } else {
+                statusText.className += 'status-initial';
+                statusText.textContent = 'Ready to Import';
+            }
+        }
+
+        function updateTemplateStyle() {
+            const currentStyle = styleKits[state.currentStyleKit];
+            
+            templateContainer.style.backgroundColor = currentStyle.backgroundColor;
+            templateContainer.style.borderColor = currentStyle.borderColor;
+            
+            templateTitle.style.color = currentStyle.titleColor;
+            templateTitle.style.fontFamily = currentStyle.titleFont;
+            
+            templateSubtitle.style.color = currentStyle.subtitleColor;
+            templateSubtitle.style.fontFamily = currentStyle.subtitleFont;
+            templateSubtitle.textContent = `Photography - ${currentStyle.name} Style`;
+        }
+
+        function createAnimatedPhoto(photo, index, animationType) {
+            const animatedDiv = document.createElement('div');
+            animatedDiv.className = 'animated-photo';
+            animatedDiv.style.animationDelay = `${index * 150}ms`;
+            animatedDiv.style.zIndex = 100 - index;
+            
+            if (photo.isUploaded) {
+                animatedDiv.style.backgroundImage = `url(${photo.imageUrl})`;
+                animatedDiv.style.backgroundSize = 'cover';
+                animatedDiv.style.backgroundPosition = 'center';
+                animatedDiv.style.backgroundColor = 'transparent';
+            } else {
+                animatedDiv.style.backgroundColor = photo.color;
+                animatedDiv.innerHTML = '<span>🖼</span>';
+            }
+            
+            return animatedDiv;
+        }
+
+        function showAnimatedPhotos(photos, animationType) {
+            animatedOverlay.innerHTML = '';
+            animatedOverlay.style.display = 'block';
+            
+            photos.forEach((photo, index) => {
+                const animatedPhoto = createAnimatedPhoto(photo, index, animationType);
+                animatedOverlay.appendChild(animatedPhoto);
+            });
+            
+            // Hide overlay after animation completes
+            const animationDuration = animationType === 'import' ? 2000 : 3500;
+            setTimeout(() => {
+                animatedOverlay.style.display = 'none';
+                animatedOverlay.innerHTML = '';
+            }, animationDuration + (photos.length * 150));
+        }
+
+        function render() {
+            renderClientPhotos();
+            renderMediaGallery();
+            renderTemplatePhotos();
+            updateButtonStates();
+            updateStatus();
+            updateTemplateStyle();
+        }
+
+        // Event handlers
+        uploadBtn.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        fileInput.addEventListener('change', (event) => {
+            const files = Array.from(event.target.files);
+            
+            files.forEach(file => {
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const newPhoto = {
+                            id: `uploaded-${Date.now()}-${Math.random()}`,
+                            color: null,
+                            name: file.name,
+                            imageUrl: e.target.result,
+                            isUploaded: true
+                        };
+                        
+                        state.clientPhotos.push(newPhoto);
+                        render();
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            event.target.value = '';
+        });
+
+        importBtn.addEventListener('click', () => {
+            if (state.isAnimating) return;
+            
+            state.isAnimating = true;
+            render();
+            
+            // Show animated photos
+            showAnimatedPhotos(state.clientPhotos, 'import');
+            
+            setTimeout(() => {
+                state.mediaGalleryPhotos = [...state.clientPhotos];
+                state.isAnimating = false;
+                render();
+            }, 2000);
+        });
+
+        populateBtn.addEventListener('click', () => {
+            if (state.isAnimating || state.mediaGalleryPhotos.length === 0) return;
+            
+            state.isAnimating = true;
+            render();
+            
+            // Show animated photos
+            showAnimatedPhotos(state.mediaGalleryPhotos, 'populate');
+            
+            setTimeout(() => {
+                state.templatePhotos = [...state.mediaGalleryPhotos];
+                state.isAnimating = false;
+                render();
+            }, 3500);
+        });
+
+        shuffleBtn.addEventListener('click', () => {
+            if (state.templatePhotos.length === 0) return;
+            
+            state.templatePhotos = state.templatePhotos.sort(() => Math.random() - 0.5);
+            render();
+        });
+
+        styleKitBtn.addEventListener('click', () => {
+            if (state.templatePhotos.length === 0) return;
+            
+            state.currentStyleKit = (state.currentStyleKit + 1) % styleKits.length;
+            render();
+        });
+
+        resetBtn.addEventListener('click', () => {
+            state.clientPhotos = [];
+            state.mediaGalleryPhotos = [];
+            state.templatePhotos = [];
+            state.animatingPhotos = [];
+            state.isAnimating = false;
+            state.currentStyleKit = 0;
+            render();
+        });
+
+        // Initialize
+        render();
+    </script>
+</body>
+</html>
