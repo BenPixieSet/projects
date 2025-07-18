@@ -6,7 +6,10 @@
 
 .demo-container {
   min-height: 100vh;
+  height: 100%;
   background: linear-gradient(135deg, #a6f5e0 0%, #f3e8ff 100%);
+  background-attachment: fixed;
+  background-size: cover;
   padding: 16px;
 }
 
@@ -75,8 +78,48 @@
 
 @media (max-width: 768px) {
   .demo-grid {
-    flex-direction: column;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto auto;
     gap: 12px;
+  }
+  
+  .collections-section {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .import-button {
+    grid-column: 1;
+    grid-row: 2;
+    justify-self: center;
+  }
+
+  .media-library-section {
+    grid-column: 1;
+    grid-row: 3;
+  }
+
+  .populate-button {
+    grid-column: 1;
+    grid-row: 4;
+    justify-self: center;
+  }
+
+  .templates-section {
+    grid-column: 1;
+    grid-row: 5;
+  }
+  
+  /* Center align all buttons on mobile */
+  .demo-card > div:first-child {
+    justify-content: center !important;
+  }
+  
+  .upload-button,
+  .shuffle-button,
+  .style-kit-button,
+  .feel-lucky-button {
+    margin: 0 auto;
   }
 }
 
@@ -97,7 +140,7 @@
 
 .section-description {
   font-size: 14px;
-  color: #0e0e0f;
+  color: #6b7280;
   margin: 0 0 16px 0;
   font-style: italic;
 }
@@ -139,7 +182,7 @@
 
 .section-description {
   font-size: 14px;
-  color: #000000;
+  color: #6b7280;
   margin: 0 0 16px 0;
   font-style: italic;
 }
@@ -422,12 +465,12 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
-  background-color: #7beabe;
-  color: rgb(10, 10, 10);
+  background-color: #82e39c;
+  color: rgb(0, 0, 0);
 }
 
 .upload-button:hover {
-  background-color: #8fddbb;
+  background-color: #b8e5be;
 }
 
 /* Shuffle button styles */
@@ -537,7 +580,7 @@
 }
 
 .button-gray {
-  background-color: #2e8daa;
+  background-color: #6b7280;
   color: white;
 }
 

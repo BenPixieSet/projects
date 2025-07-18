@@ -317,7 +317,7 @@ const PhotoWorkflowDemo = () => {
               >
                 <button onClick={handleUploadClick} className="upload-button">
                   <Upload size={14} />
-                  Upload Photos/Videos
+                  Upload Photos
                 </button>
               </div>
               <input
