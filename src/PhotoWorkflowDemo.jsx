@@ -284,7 +284,7 @@ const PhotoWorkflowDemo = () => {
     <div className="demo-container">
       <div className="demo-content">
         <div className="demo-header">
-          <h1 className="demo-title">Template | Photo Workflow Demo</h1>
+          <h1 className="demo-title">AutoPhoteo | Photo Workflow Demo</h1>
           <p className="demo-subtitle">
             GD | Collections → PW | Media Library → Populated Site
           </p>
